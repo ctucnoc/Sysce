@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -38,5 +40,12 @@ public class SubsidiaryServiceImpl implements SubsidiaryService {
         bSubsidiary.setSubsidiaryStatus(SysceConstant.STATE_ACTIVE);
         bSubsidiary.setBEnterprise(bEnterprise);
         this.subsidiaryRepository.save(bSubsidiary);
+    }
+
+    @Override
+    public List<SubsidiaryDTO> findAllByEnterpriseId(int id) {
+        return this.subsidiaryRepository.findAllByEnterpriseId(id,SysceConstant.STATE_ACTIVE).stream().map((bean)->
+            new SubsidiaryDTO(bean.getSubsidiaryId(),bean.getSubsidiaryName(),bean.getSubsidiaryAddress(),bean.getSubsidiaryNumberPhone(),bean.getBEnterprise().getEnterpriseId())
+        ).collect(Collectors.toList());
     }
 }

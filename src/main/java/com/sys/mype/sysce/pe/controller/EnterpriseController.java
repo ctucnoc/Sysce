@@ -25,4 +25,9 @@ public class EnterpriseController {
         this.enterpriseService.save(dto);
         return new ResponseEntity<>(new MessageDTO("Empresa Guardado"), HttpStatus.CREATED);
     }
+
+    @GetMapping("/findById/{id}")
+    public EnterpriseDTO findById(@PathVariable int id){
+        return this.enterpriseService.findById(id);
+    }
 }

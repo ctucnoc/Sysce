@@ -2,13 +2,11 @@ package com.sys.mype.sysce.pe.controller;
 
 import com.sys.mype.sysce.pe.constant.SysceConstant;
 import com.sys.mype.sysce.pe.dto.MessageDTO;
+import com.sys.mype.sysce.pe.dto.ProductDTO;
 import com.sys.mype.sysce.pe.service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,7 +37,7 @@ public class ProductController {
          * Segunda forma
          * Similar al primero pero sin HashMap *ctc
          */
-        return new ResponseEntity<>(productService.findAll(), HttpStatus.CREATED);
+        return new ResponseEntity<>(this.productService.findAll(), HttpStatus.CREATED);
 
         /**
          * Tercera forma
@@ -47,6 +45,12 @@ public class ProductController {
         //return ResponseEntity.status(HttpStatus.OK).body(productService.findAll());
 
 
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<?> save(@RequestBody ProductDTO productDTO){
+        this.productService.save(productDTO);
+        return new ResponseEntity<>(new MessageDTO("Producto guardado"), HttpStatus.CREATED);
     }
 
 }

@@ -40,8 +40,9 @@ public final class SysceConstant {
     // =============================================================================================
     public static final String PATH_SYSCE_APP_ENTERPRISE = "api/sysce-app/enterprise";
     public static final String PATH_SYSCE_APP_SUBSIDIARY = "api/sysce-app/subsidiary";
-    public static final String PATH_SYSCE_APP_PRODUCT = "api/sysce-app/product";
     public static final String PATH_SYSCE_APP_CATEGORY = "api/sysce-app/category";
+    public static final String PATH_SYSCE_APP_SUBCATEGORY = "api/sysce-app/sub-category";
+    public static final String PATH_SYSCE_APP_PRODUCT = "api/sysce-app/product";
 
 
 

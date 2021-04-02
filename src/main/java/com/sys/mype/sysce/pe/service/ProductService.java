@@ -7,7 +7,7 @@ import java.util.List;
 public interface ProductService {
 
     public List<ProductDTO> findAll();
-    public ProductDTO save(ProductDTO productDTO);
+    public void save(ProductDTO productDTO);
     public List<ProductDTO> findByProductName();
     public ProductDTO findById(String productId);
 }

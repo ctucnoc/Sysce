@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Locale;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,5 +22,10 @@ public class ProductDTO {
     private String productRefrigeration;
     private String productStatus;
     private int subCategoryId;
+
+    public void switchToUppercase(){
+    this.productName = this.productName.toUpperCase();
+    this.productNameSummary = this.productNameSummary.toUpperCase();
+    }
 
 }

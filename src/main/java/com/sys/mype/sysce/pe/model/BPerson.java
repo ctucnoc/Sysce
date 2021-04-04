@@ -38,6 +38,9 @@ public class BPerson {
     @Temporal(TemporalType.DATE)
     private Date personDateBirth;
 
+    @Column(name = "sn_active",length = 1)
+    private String personStatus;
+
     @ManyToOne
     @JoinColumn(name = "cd_gender")
     private BGender bGender;

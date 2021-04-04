@@ -37,4 +37,12 @@ public class SysceExceptionHandler {
         sysceError.setSubErrors(ex.getSubErrors());
         return sysceError;
     }
+
+    @ExceptionHandler(SysceUnauthorizedException.class)
+    protected SysceError handleEntityUnauthorized(SysceUnauthorizedException ex) {
+        SysceError sysceError = new SysceError(HttpStatus.UNAUTHORIZED,
+                SysceConstant.PREFIX_CLIENT_ERROR + SysceConstant.UNAUTHORIZED);
+        sysceError.setMessage(ex.getMessage());
+        return sysceError;
+    }
 }

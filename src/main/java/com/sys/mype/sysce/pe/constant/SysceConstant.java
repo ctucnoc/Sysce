@@ -42,11 +42,17 @@ public final class SysceConstant {
     public static final String PATH_SYSCE_APP_SUBSIDIARY = "api/sysce-app/subsidiary";
     public static final String PATH_SYSCE_APP_PRODUCT = "api/sysce-app/product";
     public static final String PATH_SYSCE_APP_CATEGORY = "api/sysce-app/category";
+    public static final String PATH_SYSCE_APP_SIP = "api/sysce-app/sip";
+    public static final String PATH_SYSCE_APP_PERSON = "api/sysce-app/person";
+    public static final String PATH_SYSCE_APP_USER = "api/sysce-app/user";
+    public static final String PATH_SYSCE_APP_SIP_PERMIT_ALL="/api/sysce-app/sip/login";
+
+
 
 
 
     // =============================================================================================
     // PATH DEL SISTEMA SYSCE FROENT-END
     // =============================================================================================
-    public static final String PATH_FROTEND_SYSCE = "http://localhost:8100";
+    public static final String PATH_FROTEND_SYSCE = "*";
 }

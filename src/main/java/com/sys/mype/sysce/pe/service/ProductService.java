@@ -8,6 +8,7 @@ import java.util.List;
 public interface ProductService {
 
     public List<ProductDTO> findAll();
+
     public void save(ProductDTO productDTO);
 
     public List<ProductDTO> findByProductName(String productName);

@@ -76,7 +76,7 @@ public class ProductController {
 
         this.productService.save(dProductDTO);
 
-        return new ResponseEntity<>(new MessageDTO("Ep producto fue actualziado correctamente"), HttpStatus.CREATED);
+        return new ResponseEntity<>(new MessageDTO("Ep producto fue actualizado correctamente"), HttpStatus.CREATED);
 
     }
 

@@ -30,12 +30,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDTO> findAll() {
 
-        //List<ProductDTO> dtoList = new ArrayList<>();
-
-
-        //Iterable<BProduct> products = productRepository.findAll();
-
-
         return ((List<BProduct>) productRepository.findAll()).stream().map((bProduct)->
             new ProductDTO(
                         bProduct.getProductId(),
@@ -48,27 +42,6 @@ public class ProductServiceImpl implements ProductService {
                         bProduct.getProductRefrigeration(),
                         bProduct.getProductStatus(),
                         bProduct.getBSubCategory().getSubCategoryId())).collect(Collectors.toList());
-
-//        for (BProduct bProduct : products){
-//
-//            ProductDTO productDTO = new ProductDTO();
-//
-//            productDTO.setProductId(bProduct.getProductId());
-//            productDTO.setProductName(bProduct.getProductName());
-//            productDTO.setProductNameSummary(bProduct.getProductNameSummary());
-//            productDTO.setProductKit(bProduct.getProductKit());
-//            productDTO.setProductGeneric(bProduct.getProductGeneric());
-//            productDTO.setProductBatch(bProduct.getProductBatch());
-//            productDTO.setProductExpirationDate(bProduct.getProductExpirationDate());
-//            productDTO.setProductRefrigeration(bProduct.getProductRefrigeration());
-//            productDTO.setProductStatus(bProduct.getProductStatus());
-//            productDTO.setSubCategoryId(bProduct.getBSubCategory().getSubCategoryId());
-//            dtoList.add(productDTO);
-//
-//        }
-//
-//
-//        return dtoList;
     }
 
     @Override
@@ -98,10 +71,12 @@ public class ProductServiceImpl implements ProductService {
 
     }
 
-
     @Override
     public List<ProductDTO> findByProductName(String productName) {
-        return this.productRepository.findByProductName(productName, SysceConstant.STATE_ACTIVE)
+
+        //return this.productRepository.findByProductName(productName, SysceConstant.STATE_ACTIVE)
+        //return this.productRepository.findByProductNameContainingIgnoreCaseAndProductStatus(productName, SysceConstant.STATE_ACTIVE)
+        return this.productRepository.findByProductNameLikeIgnoreCaseAndProductStatus("%"+productName+"%", SysceConstant.STATE_ACTIVE)
                 .stream()
                 .map(bProduct ->
                         new ProductDTO(

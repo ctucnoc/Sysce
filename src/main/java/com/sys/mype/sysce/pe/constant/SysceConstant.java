@@ -41,17 +41,15 @@ public final class SysceConstant {
     public static final String PATH_SYSCE_APP_ENTERPRISE = "api/sysce-app/enterprise";
     public static final String PATH_SYSCE_APP_SUBSIDIARY = "api/sysce-app/subsidiary";
     public static final String PATH_SYSCE_APP_CATEGORY = "api/sysce-app/category";
-<<<<<<< HEAD
+    public static final String PATH_SYSCE_APP_SUBCATEGORY = "api/sysce-app/sub-category";
+    public static final String PATH_SYSCE_APP_PRODUCT = "api/sysce-app/product";
+
+
     public static final String PATH_SYSCE_APP_SIP = "api/sysce-app/sip";
     public static final String PATH_SYSCE_APP_PERSON = "api/sysce-app/person";
     public static final String PATH_SYSCE_APP_USER = "api/sysce-app/user";
     public static final String PATH_SYSCE_APP_SIP_PERMIT_ALL="/api/sysce-app/sip/login";
 
-
-=======
-    public static final String PATH_SYSCE_APP_SUBCATEGORY = "api/sysce-app/sub-category";
-    public static final String PATH_SYSCE_APP_PRODUCT = "api/sysce-app/product";
->>>>>>> f9a0315ec3b98d2adc4dc723704a0697bcfb8259
 
 
 

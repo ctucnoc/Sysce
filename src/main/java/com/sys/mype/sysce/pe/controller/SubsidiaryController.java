@@ -15,7 +15,7 @@ import java.util.List;
 @CrossOrigin(SysceConstant.PATH_FROTEND_SYSCE)
 public class SubsidiaryController {
 
-    final private SubsidiaryService subsidiaryService;
+    private final SubsidiaryService subsidiaryService;
 
     public SubsidiaryController(SubsidiaryService subsidiaryService) {
         this.subsidiaryService = subsidiaryService;

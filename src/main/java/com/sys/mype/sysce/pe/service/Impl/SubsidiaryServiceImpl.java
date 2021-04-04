@@ -45,7 +45,12 @@ public class SubsidiaryServiceImpl implements SubsidiaryService {
     @Override
     public List<SubsidiaryDTO> findAllByEnterpriseId(int id) {
         return this.subsidiaryRepository.findAllByEnterpriseId(id,SysceConstant.STATE_ACTIVE).stream().map((bean)->
-            new SubsidiaryDTO(bean.getSubsidiaryId(),bean.getSubsidiaryName(),bean.getSubsidiaryAddress(),bean.getSubsidiaryNumberPhone(),bean.getBEnterprise().getEnterpriseId())
+            new SubsidiaryDTO(
+                    bean.getSubsidiaryId(),
+                    bean.getSubsidiaryName(),
+                    bean.getSubsidiaryAddress(),
+                    bean.getSubsidiaryNumberPhone(),
+                    bean.getBEnterprise().getEnterpriseId())
         ).collect(Collectors.toList());
     }
 }

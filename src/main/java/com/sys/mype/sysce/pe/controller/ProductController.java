@@ -2,15 +2,15 @@ package com.sys.mype.sysce.pe.controller;
 
 import com.sys.mype.sysce.pe.constant.SysceConstant;
 import com.sys.mype.sysce.pe.dto.MessageDTO;
+import com.sys.mype.sysce.pe.dto.ProductDTO;
+import com.sys.mype.sysce.pe.model.BProduct;
 import com.sys.mype.sysce.pe.service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -18,7 +18,7 @@ import java.util.Map;
 @CrossOrigin(SysceConstant.PATH_FROTEND_SYSCE)
 public class ProductController {
 
-    private ProductService productService;
+    private final ProductService productService;
 
     public ProductController(ProductService productService) {
         this.productService = productService;
@@ -39,13 +39,44 @@ public class ProductController {
          * Segunda forma
          * Similar al primero pero sin HashMap *ctc
          */
-        return new ResponseEntity<>(productService.findAll(), HttpStatus.CREATED);
+        return new ResponseEntity<>(this.productService.findAll(), HttpStatus.CREATED);
 
         /**
          * Tercera forma
          */
         //return ResponseEntity.status(HttpStatus.OK).body(productService.findAll());
 
+
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<?> save(@RequestBody ProductDTO productDTO){
+        this.productService.save(productDTO);
+        return new ResponseEntity<>(new MessageDTO("Producto guardado"), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/findByProductName/{productName}")
+    public List<ProductDTO> findByProductName(@PathVariable String productName){
+        return this.productService.findByProductName(productName);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<?> update(@RequestBody ProductDTO productDTO){
+
+        ProductDTO dProductDTO = this.productService.findByProductId(productDTO.getId());
+
+        dProductDTO.setKit(productDTO.getKit());
+        dProductDTO.setBatch(productDTO.getBatch());
+        dProductDTO.setGeneric(productDTO.getGeneric());
+        dProductDTO.setName(productDTO.getName());
+        dProductDTO.setStatus(productDTO.getStatus());
+        dProductDTO.setExpDate(productDTO.getExpDate());
+        dProductDTO.setRefrigeration(productDTO.getRefrigeration());
+        dProductDTO.setSummary(productDTO.getSummary());
+
+        this.productService.save(dProductDTO);
+
+        return new ResponseEntity<>(new MessageDTO("Fue producto fue actualizado correctamente"), HttpStatus.CREATED);
 
     }
 

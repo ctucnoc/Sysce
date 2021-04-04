@@ -1,20 +1,27 @@
 package com.sys.mype.sysce.pe.service.Impl;
 
+import com.sys.mype.sysce.pe.constant.SysceConstant;
 import com.sys.mype.sysce.pe.dto.ProductDTO;
+import com.sys.mype.sysce.pe.errorhandler.SysceEntityNotFoundException;
+import com.sys.mype.sysce.pe.errorhandler.SysceGenericClientException;
 import com.sys.mype.sysce.pe.model.BProduct;
+import com.sys.mype.sysce.pe.model.BSubCategory;
 import com.sys.mype.sysce.pe.repository.ProductRepository;
 import com.sys.mype.sysce.pe.service.ProductService;
+import com.sys.mype.sysce.pe.util.Util;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
 public class ProductServiceImpl implements ProductService {
 
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
     public ProductServiceImpl(ProductRepository productRepository) {
         this.productRepository = productRepository;
@@ -23,43 +30,87 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDTO> findAll() {
 
-        List<ProductDTO> dtoList = new ArrayList<>();
+        return ((List<BProduct>) productRepository.findAll()).stream().map((bProduct)->
+            new ProductDTO(
+                        bProduct.getProductId(),
+                        bProduct.getProductName(),
+                        bProduct.getProductNameSummary(),
+                        bProduct.getProductKit(),
+                        bProduct.getProductGeneric(),
+                        bProduct.getProductBatch(),
+                        bProduct.getProductExpirationDate(),
+                        bProduct.getProductRefrigeration(),
+                        bProduct.getProductStatus(),
+                        bProduct.getBSubCategory().getSubCategoryId())).collect(Collectors.toList());
+    }
 
+    @Override
+    public void save(ProductDTO productDTO) {
 
-        Iterable<BProduct> products = productRepository.findAll();
-
-        for (BProduct bProduct : products){
-            ProductDTO productDTO = new ProductDTO();
-            productDTO.setProductId(bProduct.getProductId());
-            productDTO.setProductName(bProduct.getProductName());
-            productDTO.setProductNameSummary(bProduct.getProductNameSummary());
-            productDTO.setProductKit(bProduct.getProductKit());
-            productDTO.setProductGeneric(bProduct.getProductGeneric());
-            productDTO.setProductBatch(bProduct.getProductBatch());
-            productDTO.setProductExpirationDate(bProduct.getProductExpirationDate());
-            productDTO.setProductRefrigeration(bProduct.getProductRefrigeration());
-            productDTO.setProductStatus(bProduct.getProductStatus());
-            productDTO.setSubCategoryId(bProduct.getBSubCategory().getSubCategoryId());
-            dtoList.add(productDTO);
-
+        if (!Util.validateEmptyField(productDTO.getName())){
+            throw new SysceGenericClientException("Por favor, ingrese un producto", HttpStatus.BAD_REQUEST);
         }
 
+        BProduct bProduct = new BProduct();
+        bProduct.setProductId(productDTO.getId());
+        bProduct.setProductName(productDTO.getName());
+        bProduct.setProductNameSummary(productDTO.getSummary());
+        bProduct.setProductKit(productDTO.getKit());
+        bProduct.setProductGeneric(productDTO.getGeneric());
+        bProduct.setProductBatch(productDTO.getBatch());
+        bProduct.setProductExpirationDate(productDTO.getExpDate());
+        bProduct.setProductRefrigeration(productDTO.getRefrigeration());
+        bProduct.setProductStatus(productDTO.getStatus());
 
-        return dtoList;
+        BSubCategory bSubCategory = new BSubCategory();
+        bSubCategory.setSubCategoryId(productDTO.getSubCategoryId());
+
+        bProduct.setBSubCategory(bSubCategory);
+
+        this.productRepository.save(bProduct);
+
     }
 
     @Override
-    public ProductDTO save(ProductDTO productDTO) {
-        return null;
+    public List<ProductDTO> findByProductName(String productName) {
+
+        //return this.productRepository.findByProductName(productName, SysceConstant.STATE_ACTIVE)
+        //return this.productRepository.findByProductNameContainingIgnoreCaseAndProductStatus(productName, SysceConstant.STATE_ACTIVE)
+        return this.productRepository.findByProductNameLikeIgnoreCaseAndProductStatus("%"+productName+"%", SysceConstant.STATE_ACTIVE)
+                .stream()
+                .map(bProduct ->
+                        new ProductDTO(
+                                bProduct.getProductId(),
+                                bProduct.getProductName(),
+                                bProduct.getProductNameSummary(),
+                                bProduct.getProductKit(),
+                                bProduct.getProductGeneric(),
+                                bProduct.getProductBatch(),
+                                bProduct.getProductExpirationDate(),
+                                bProduct.getProductRefrigeration(),
+                                bProduct.getProductStatus(),
+                                bProduct.getBSubCategory().getSubCategoryId())).collect(Collectors.toList());
     }
 
     @Override
-    public List<ProductDTO> findByProductName() {
-        return null;
+    public ProductDTO findByProductId(String productId) {
+
+        BProduct bProduct = this.productRepository.findById(productId)
+                .orElseThrow(()->new SysceEntityNotFoundException(String.format("Producto con %s no encontrado",productId)));
+
+        return new ProductDTO(
+                bProduct.getProductId(),
+                bProduct.getProductName(),
+                bProduct.getProductNameSummary(),
+                bProduct.getProductKit(),
+                bProduct.getProductGeneric(),
+                bProduct.getProductBatch(),
+                bProduct.getProductExpirationDate(),
+                bProduct.getProductRefrigeration(),
+                bProduct.getProductStatus(),
+                bProduct.getBSubCategory().getSubCategoryId()
+        );
     }
 
-    @Override
-    public ProductDTO findById(String productId) {
-        return null;
-    }
+
 }

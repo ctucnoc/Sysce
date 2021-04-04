@@ -56,6 +56,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 			// could also store the information
 			// in the token and read it from it. It's up to you ;)
 
+			logger.info("hola sistemas unsch :: "+username);
 			UserPrincipalDTO user = (UserPrincipalDTO) myAuthenticationProvider.loadUserByUsername(username);
 
 			// For simple validation it is completely sufficient to just check the token

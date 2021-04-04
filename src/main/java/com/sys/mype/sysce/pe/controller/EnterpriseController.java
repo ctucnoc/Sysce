@@ -27,6 +27,12 @@ public class EnterpriseController {
         return new ResponseEntity<>(new MessageDTO("Empresa Guardado"), HttpStatus.CREATED);
     }
 
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> update(@PathVariable int id,@RequestBody EnterpriseDTO dto){
+        this.enterpriseService.update(id,dto);
+        return new ResponseEntity<>(new MessageDTO("Registro actualizado"),HttpStatus.OK);
+    }
+
     @GetMapping("/findById/{id}")
     public EnterpriseDTO findById(@PathVariable int id){
         return this.enterpriseService.findById(id);

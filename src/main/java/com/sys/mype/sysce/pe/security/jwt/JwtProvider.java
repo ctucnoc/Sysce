@@ -76,7 +76,8 @@ public class JwtProvider implements Serializable {
 		final Date createdDate = clock.now();
 		final Date expirationDate = calculateExpirationDate(createdDate);
 
-		return Jwts.builder().setClaims(claims).setSubject(user.getUsername()).setIssuedAt(createdDate)
+		String userAndRuc=String.format("%s%s%s", user.getId().trim(),String.valueOf(Character.LINE_SEPARATOR), user.getRuc());
+		return Jwts.builder().setClaims(claims).setSubject(userAndRuc).setIssuedAt(createdDate)
 				.setExpiration(expirationDate).signWith(SignatureAlgorithm.HS512, secret).compact();
 	}
 
@@ -100,7 +101,8 @@ public class JwtProvider implements Serializable {
 	public Boolean validateToken(String token, UserPrincipalDTO user) {
 		final String username = getUsernameFromToken(token);
 		final Date created = getIssuedAtDateFromToken(token);
-		return (username.equals(user.getUsername()) && !isTokenExpired(token)
+		String userAndRuc=String.format("%s%s%s", user.getId().trim(),String.valueOf(Character.LINE_SEPARATOR), user.getRuc());
+		return (username.equals(userAndRuc) && !isTokenExpired(token)
 				&& !isCreatedBeforeLastPasswordReset(created, user.getLastPasswordResetDate()));
 	}
 

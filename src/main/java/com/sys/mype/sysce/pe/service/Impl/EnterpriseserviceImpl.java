@@ -45,8 +45,17 @@ public class EnterpriseserviceImpl implements EnterpriseService {
     }
 
     @Override
-    public List<EnterpriseDTO> findByName(String name) {
+    public void update(int id,EnterpriseDTO dto) {
+        BEnterprise bEnterprise=this.enterpriseRepository.findById(id).orElseThrow(()-> new SysceEntityNotFoundException("registro no encontrado"));
+        bEnterprise.setEnterpriseMail(dto.getMail());
+        bEnterprise.setEnterpriseNumberPhone(dto.getPhone());
+        bEnterprise.setEnterpriseAddress(dto.getAddress());
+        bEnterprise.setEnterpriseName(dto.getName());
+        this.enterpriseRepository.save(bEnterprise);
+    }
 
+    @Override
+    public List<EnterpriseDTO> findByName(String name) {
         return this.enterpriseRepository.findByEnterpriseName(name, SysceConstant.STATE_ACTIVE)
                 .stream()
                 .map(bEnterprise ->

@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface EnterpriseService {
     public void save(EnterpriseDTO dto);
+    public void update(int id,EnterpriseDTO dto);
     public List<EnterpriseDTO> findByName(String name);
     public EnterpriseDTO findById(int id);
 }

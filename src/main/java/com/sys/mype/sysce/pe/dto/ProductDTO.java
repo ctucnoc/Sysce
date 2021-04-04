@@ -12,20 +12,15 @@ import java.util.Locale;
 @NoArgsConstructor
 public class ProductDTO {
 
-    private String productId;
-    private String productName;
-    private String productNameSummary;
-    private String productKit;
-    private String productGeneric;
-    private String productBatch;
-    private String productExpirationDate;
-    private String productRefrigeration;
-    private String productStatus;
+    private String id;
+    private String name;
+    private String summary;
+    private String kit;
+    private String generic;
+    private String batch;
+    private String expDate;
+    private String refrigeration;
+    private String status;
     private int subCategoryId;
-
-    public void switchToUppercase(){
-    this.productName = this.productName.toUpperCase();
-    this.productNameSummary = this.productNameSummary.toUpperCase();
-    }
 
 }

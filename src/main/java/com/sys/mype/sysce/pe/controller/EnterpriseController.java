@@ -8,13 +8,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(SysceConstant.PATH_SYSCE_APP_ENTERPRISE)
 @CrossOrigin(SysceConstant.PATH_FROTEND_SYSCE)
 public class EnterpriseController {
 
-    final
-    private EnterpriseService enterpriseService;
+    final private EnterpriseService enterpriseService;
 
     public EnterpriseController(EnterpriseService enterpriseService) {
         this.enterpriseService = enterpriseService;
@@ -29,5 +30,10 @@ public class EnterpriseController {
     @GetMapping("/findById/{id}")
     public EnterpriseDTO findById(@PathVariable int id){
         return this.enterpriseService.findById(id);
+    }
+
+    @GetMapping("/findByName/{name}")
+    public List<EnterpriseDTO> findByName(@PathVariable String name){
+        return this.enterpriseService.findByName(name);
     }
 }

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(SysceConstant.PATH_FROTEND_SYSCE)
 public class SubCategoryController {
 
-    private SubCategoryService subCategoryService;
+    private final SubCategoryService subCategoryService;
 
     public SubCategoryController(SubCategoryService subCategoryService) {
         this.subCategoryService = subCategoryService;

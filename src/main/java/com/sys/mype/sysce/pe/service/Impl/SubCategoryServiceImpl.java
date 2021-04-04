@@ -16,7 +16,7 @@ import javax.transaction.Transactional;
 @Transactional
 public class SubCategoryServiceImpl implements SubCategoryService {
 
-    private SubCategoryRepository subCategoryRepository;
+    private final SubCategoryRepository subCategoryRepository;
 
     public SubCategoryServiceImpl(SubCategoryRepository subCategoryRepository) {
         this.subCategoryRepository = subCategoryRepository;
@@ -25,13 +25,13 @@ public class SubCategoryServiceImpl implements SubCategoryService {
     @Override
     public void save(SubCategoryDTO subCategoryDTO) {
 
-        if (!Util.validateEmptyField(subCategoryDTO.getSubCategoryDescription())){
+        if (!Util.validateEmptyField(subCategoryDTO.getDescription())){
             throw new SysceGenericClientException("Por favor, ingrese una subcateforia", HttpStatus.BAD_REQUEST);
         }
 
         BSubCategory bSubCategory = new BSubCategory();
-        bSubCategory.setSubCategoryDescription(subCategoryDTO.getSubCategoryDescription());
-        bSubCategory.setSubCategoryStatus(subCategoryDTO.getSubCategoryStatus());
+        bSubCategory.setSubCategoryDescription(subCategoryDTO.getDescription());
+        bSubCategory.setSubCategoryStatus(subCategoryDTO.getStatus());
 
         BCategory bCategory = new BCategory();
         bCategory.setCategoryId(subCategoryDTO.getCategoryId());

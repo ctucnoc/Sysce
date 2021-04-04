@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @Transactional
 public class ProductServiceImpl implements ProductService {
 
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
     public ProductServiceImpl(ProductRepository productRepository) {
         this.productRepository = productRepository;
@@ -47,20 +47,20 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void save(ProductDTO productDTO) {
 
-        if (!Util.validateEmptyField(productDTO.getProductName())){
+        if (!Util.validateEmptyField(productDTO.getName())){
             throw new SysceGenericClientException("Por favor, ingrese un producto", HttpStatus.BAD_REQUEST);
         }
 
         BProduct bProduct = new BProduct();
-        bProduct.setProductId(productDTO.getProductId());
-        bProduct.setProductName(productDTO.getProductName());
-        bProduct.setProductNameSummary(productDTO.getProductNameSummary());
-        bProduct.setProductKit(productDTO.getProductKit());
-        bProduct.setProductGeneric(productDTO.getProductGeneric());
-        bProduct.setProductBatch(productDTO.getProductBatch());
-        bProduct.setProductExpirationDate(productDTO.getProductExpirationDate());
-        bProduct.setProductRefrigeration(productDTO.getProductRefrigeration());
-        bProduct.setProductStatus(productDTO.getProductStatus());
+        bProduct.setProductId(productDTO.getId());
+        bProduct.setProductName(productDTO.getName());
+        bProduct.setProductNameSummary(productDTO.getSummary());
+        bProduct.setProductKit(productDTO.getKit());
+        bProduct.setProductGeneric(productDTO.getGeneric());
+        bProduct.setProductBatch(productDTO.getBatch());
+        bProduct.setProductExpirationDate(productDTO.getExpDate());
+        bProduct.setProductRefrigeration(productDTO.getRefrigeration());
+        bProduct.setProductStatus(productDTO.getStatus());
 
         BSubCategory bSubCategory = new BSubCategory();
         bSubCategory.setSubCategoryId(productDTO.getSubCategoryId());
@@ -98,7 +98,7 @@ public class ProductServiceImpl implements ProductService {
         BProduct bProduct = this.productRepository.findById(productId)
                 .orElseThrow(()->new SysceEntityNotFoundException(String.format("Producto con %s no encontrado",productId)));
 
-        ProductDTO productDTO = new ProductDTO(
+        return new ProductDTO(
                 bProduct.getProductId(),
                 bProduct.getProductName(),
                 bProduct.getProductNameSummary(),
@@ -110,8 +110,6 @@ public class ProductServiceImpl implements ProductService {
                 bProduct.getProductStatus(),
                 bProduct.getBSubCategory().getSubCategoryId()
         );
-
-        return productDTO;
     }
 
 

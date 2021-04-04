@@ -18,7 +18,7 @@ import java.util.Map;
 @CrossOrigin(SysceConstant.PATH_FROTEND_SYSCE)
 public class ProductController {
 
-    private ProductService productService;
+    private final ProductService productService;
 
     public ProductController(ProductService productService) {
         this.productService = productService;
@@ -63,20 +63,20 @@ public class ProductController {
     @PutMapping("/update")
     public ResponseEntity<?> update(@RequestBody ProductDTO productDTO){
 
-        ProductDTO dProductDTO = this.productService.findByProductId(productDTO.getProductId());
+        ProductDTO dProductDTO = this.productService.findByProductId(productDTO.getId());
 
-        dProductDTO.setProductKit(productDTO.getProductKit());
-        dProductDTO.setProductBatch(productDTO.getProductBatch());
-        dProductDTO.setProductGeneric(productDTO.getProductGeneric());
-        dProductDTO.setProductName(productDTO.getProductName());
-        dProductDTO.setProductStatus(productDTO.getProductStatus());
-        dProductDTO.setProductExpirationDate(productDTO.getProductExpirationDate());
-        dProductDTO.setProductRefrigeration(productDTO.getProductRefrigeration());
-        dProductDTO.setProductNameSummary(productDTO.getProductNameSummary());
+        dProductDTO.setKit(productDTO.getKit());
+        dProductDTO.setBatch(productDTO.getBatch());
+        dProductDTO.setGeneric(productDTO.getGeneric());
+        dProductDTO.setName(productDTO.getName());
+        dProductDTO.setStatus(productDTO.getStatus());
+        dProductDTO.setExpDate(productDTO.getExpDate());
+        dProductDTO.setRefrigeration(productDTO.getRefrigeration());
+        dProductDTO.setSummary(productDTO.getSummary());
 
         this.productService.save(dProductDTO);
 
-        return new ResponseEntity<>(new MessageDTO("Ep producto fue actualizado correctamente"), HttpStatus.CREATED);
+        return new ResponseEntity<>(new MessageDTO("Fue producto fue actualizado correctamente"), HttpStatus.CREATED);
 
     }
 

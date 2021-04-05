@@ -38,7 +38,5 @@ public class SubCategoryServiceImpl implements SubCategoryService {
         bSubCategory.setBCategory(bCategory);
 
         this.subCategoryRepository.save(bSubCategory);
-
-
     }
 }

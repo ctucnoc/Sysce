@@ -23,6 +23,9 @@ public class BModule {
     @Column(name = "ds_code",length = 10)
     private String moduleCode;
 
+    @Column(name = "img_module",length = 60)
+    private String moduleIcon;
+
     @Column(name = "sn_active",length = 1)
     private String moduleStatus;
 }

@@ -24,7 +24,6 @@ public class SubCategoryController {
     @PostMapping("/add")
     public ResponseEntity<?> save(@RequestBody SubCategoryDTO subCategoryDTO){
         this.subCategoryService.save(subCategoryDTO);
-
         return new ResponseEntity<>(new MessageDTO("Sub categoria registrada"), HttpStatus.ACCEPTED);
     }
 }

@@ -47,6 +47,8 @@ public final class SysceConstant {
     public static final String PATH_SYSCE_APP_PERSON = "api/sysce-app/person";
     public static final String PATH_SYSCE_APP_USER = "api/sysce-app/user";
     public static final String PATH_SYSCE_APP_SIP_PERMIT_ALL="/api/sysce-app/sip/login";
+    public static final String PATH_SYSCE_APP_SCREEN="/api/sysce-app/screen";
+    public static final String PATH_SYSCE_APP_MODULE="/api/sysce-app/module";
 
 
 

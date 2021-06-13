@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(SysceConstant.PATH_SYSCE_APP_PERSON)
+@RequestMapping(SysceConstant.RESOURCE_PERSONS)
 @CrossOrigin(SysceConstant.PATH_FROTEND_SYSCE)
 public class PersonController {
 
@@ -19,7 +19,7 @@ public class PersonController {
         this.personService = personService;
     }
 
-    @PostMapping("/add")
+    @PostMapping(SysceConstant.RESOURCE_PERSONS_PERSON)
     public ResponseEntity<?> add(@RequestBody PersonDTO dto){
         this.personService.save(dto);
         return new ResponseEntity<>(new MessageDTO("Persona registrado con exito"), HttpStatus.CREATED);

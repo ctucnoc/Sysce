@@ -7,9 +7,9 @@ import com.sys.mype.sysce.pe.dto.UserPrincipalDTO;
 import com.sys.mype.sysce.pe.dto.UserResponseDTO;
 import com.sys.mype.sysce.pe.errorhandler.SysceUnauthorizedException;
 import com.sys.mype.sysce.pe.security.jwt.JwtProvider;
+import com.sys.mype.sysce.pe.util.CRUD;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,16 +21,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Objects;
 
 @RestController
-@RequestMapping(SysceConstant.PATH_SYSCE_APP_SIP)
+@RequestMapping(SysceConstant.RESOURCE_SIP)
 @CrossOrigin(SysceConstant.PATH_FROTEND_SYSCE)
 @PreAuthorize("permitAll()")
-public class SipController {
+public class SipController extends GenericController{
 
     Logger logger= LoggerFactory.getLogger(SipController.class);
 
-    final private AuthenticationManager authenticationManager;
+    final AuthenticationManager authenticationManager;
 
-    final private JwtProvider jwtProvider;
+    final JwtProvider jwtProvider;
 
 
     public SipController(AuthenticationManager authenticationManager, JwtProvider jwtProvider) {
@@ -39,14 +39,14 @@ public class SipController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserResponseDTO> login(@RequestBody UserLoinDTO dto){
+    public ResponseEntity<?> login(@RequestBody UserLoinDTO dto){
         logger.info("Iniciando proceso de login...!!!");
         logger.info(dto.getUser() +' '+dto.getPassword());
         Authentication authentication = authenticate(dto.getUser(),dto.getRuc(), dto.getPassword());
         String jwt = jwtProvider.generateToken(authentication);
         UserPrincipalDTO user = (UserPrincipalDTO) authentication.getPrincipal();
-        UserResponseDTO dto1=new UserResponseDTO(jwt,user.getId(),user.getName(),user.getRuc(),user.getAuthorities());
-        return new ResponseEntity<>(dto1, HttpStatus.OK);
+        UserResponseDTO dto1=new UserResponseDTO(jwt,user.getId(),user.getName(),user.getRuc(),user.getAuthorities(),user.getSubsidiaries(),user.getNavItems());        
+        return super.ok(dto1,CRUD.LOGIN);
     }
 
     private Authentication authenticate(String user,String ruc, String password) {

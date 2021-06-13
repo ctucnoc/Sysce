@@ -1,0 +1,1 @@
+server:  port: 8080spring:  datasource:    driver-class-name: org.postgresql.Driver    url: jdbc:postgresql://209.45.73.29:54320/db_sysce?useSSL=false    username: sysce    password: sysce  jpa:    show-sql: true    hibernate:      ddl-auto: updatejwt:  secret: Sistemas27$@pERu2o20.Fl  expiration: 56000000

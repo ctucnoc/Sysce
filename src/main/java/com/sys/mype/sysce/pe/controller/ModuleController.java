@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(SysceConstant.PATH_SYSCE_APP_MODULE)
+@RequestMapping(SysceConstant.RESOURCE_MODULES)
 @CrossOrigin(SysceConstant.PATH_FROTEND_SYSCE)
 public class ModuleController {
 

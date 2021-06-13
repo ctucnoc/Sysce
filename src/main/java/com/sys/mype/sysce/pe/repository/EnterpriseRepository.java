@@ -1,6 +1,5 @@
 package com.sys.mype.sysce.pe.repository;
 
-import com.sys.mype.sysce.pe.dto.EnterpriseDTO;
 import com.sys.mype.sysce.pe.model.BEnterprise;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

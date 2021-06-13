@@ -1,8 +1,14 @@
 package com.sys.mype.sysce.pe.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import lombok.Data;
-
-import javax.persistence.*;
 
 @Entity
 @Data
@@ -11,6 +17,7 @@ public class BKitProduct {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="cd_kit_product")
     private int kitProductId;
 
     @Column(name = "sn_active",length = 1)

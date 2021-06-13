@@ -25,6 +25,9 @@ public class BScreen {
 
     @Column(name = "ds_code",length = 10)
     private String screenCode;
+    
+    @Column(name = "ds_uri",length = 90)
+    private String screenUri;
 
     @Column(name = "sn_active",length = 1)
     private String screenStatus;

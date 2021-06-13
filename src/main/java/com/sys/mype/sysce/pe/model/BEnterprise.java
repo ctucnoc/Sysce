@@ -16,7 +16,7 @@ public class BEnterprise {
     @Column(name = "nm_enterprise",length = 90)
     private String enterpriseName;
 
-    @Column(name = "im_enterprese",length = 90)
+    @Column(name = "img_enterprise",length = 90)
     private String enterpriseImg;
 
     @Column(name = "ds_address",length = 150)

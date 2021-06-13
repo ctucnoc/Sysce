@@ -2,11 +2,14 @@ package com.sys.mype.sysce.pe.service.Impl;
 
 import com.sys.mype.sysce.pe.constant.SysceConstant;
 import com.sys.mype.sysce.pe.dto.EnterpriseDTO;
+import com.sys.mype.sysce.pe.dto.HrefEntityDTO;
+import com.sys.mype.sysce.pe.dto.request.EnterpriseRequestDTO;
 import com.sys.mype.sysce.pe.errorhandler.SysceEntityNotFoundException;
 import com.sys.mype.sysce.pe.errorhandler.SysceGenericClientException;
 import com.sys.mype.sysce.pe.model.BEnterprise;
 import com.sys.mype.sysce.pe.repository.EnterpriseRepository;
 import com.sys.mype.sysce.pe.service.EnterpriseService;
+import com.sys.mype.sysce.pe.util.SysceResources;
 import com.sys.mype.sysce.pe.util.Util;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -18,15 +21,14 @@ import java.util.stream.Collectors;
 @Transactional
 public class EnterpriseserviceImpl implements EnterpriseService {
 
-    final
-    private EnterpriseRepository enterpriseRepository;
+    final EnterpriseRepository enterpriseRepository;
 
     public EnterpriseserviceImpl(EnterpriseRepository enterpriseRepository) {
         this.enterpriseRepository = enterpriseRepository;
     }
 
     @Override
-    public void save(EnterpriseDTO dto) {
+    public HrefEntityDTO save(EnterpriseRequestDTO dto) {
         if (!Util.validateEmptyField(dto.getName()))
             throw new SysceGenericClientException("Por Favor, Ingrese un nombre", HttpStatus.BAD_REQUEST);
         if(!Util.validateEmptyField(dto.getRuc()))
@@ -42,16 +44,18 @@ public class EnterpriseserviceImpl implements EnterpriseService {
         bEnterprise.setEnterpriseRuc(dto.getRuc());
         bEnterprise.setEnterpriseStatus(SysceConstant.STATE_ACTIVE);
         this.enterpriseRepository.save(bEnterprise);
+        return Util.createHrefFromResource(bEnterprise.getEnterpriseId(), SysceResources.ENTERPRISE);
     }
 
     @Override
-    public void update(int id,EnterpriseDTO dto) {
+    public HrefEntityDTO update(int id,EnterpriseRequestDTO dto) {
         BEnterprise bEnterprise=this.enterpriseRepository.findById(id).orElseThrow(()-> new SysceEntityNotFoundException("registro no encontrado"));
         bEnterprise.setEnterpriseMail(dto.getMail());
         bEnterprise.setEnterpriseNumberPhone(dto.getPhone());
         bEnterprise.setEnterpriseAddress(dto.getAddress());
         bEnterprise.setEnterpriseName(dto.getName());
         this.enterpriseRepository.save(bEnterprise);
+        return Util.createHrefFromResource(bEnterprise.getEnterpriseId(), SysceResources.ENTERPRISE);
     }
 
     @Override

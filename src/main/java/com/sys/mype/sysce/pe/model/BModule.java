@@ -25,6 +25,9 @@ public class BModule {
 
     @Column(name = "img_module",length = 60)
     private String moduleIcon;
+    
+    @Column(name = "ds_uri",length = 90)
+    private String moduleUri;
 
     @Column(name = "sn_active",length = 1)
     private String moduleStatus;

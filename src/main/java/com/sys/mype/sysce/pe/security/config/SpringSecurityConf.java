@@ -61,7 +61,7 @@ public class SpringSecurityConf extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers(SysceConstant.PATH_SYSCE_APP_SIP_PERMIT_ALL).permitAll()
+                .antMatchers(SysceConstant.RESOURCE_SIP_PERMIT_ALL).permitAll()
                 .anyRequest().authenticated()// cualquier otra peticion requiere autenticacion
                 .and().exceptionHandling().authenticationEntryPoint(jwtEntryPoint).and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

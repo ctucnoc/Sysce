@@ -2,18 +2,23 @@ package com.sys.mype.sysce.pe.controller;
 
 import com.sys.mype.sysce.pe.constant.SysceConstant;
 import com.sys.mype.sysce.pe.dto.EnterpriseDTO;
-import com.sys.mype.sysce.pe.dto.MessageDTO;
+import com.sys.mype.sysce.pe.dto.HrefEntityDTO;
+import com.sys.mype.sysce.pe.dto.request.EnterpriseRequestDTO;
 import com.sys.mype.sysce.pe.service.EnterpriseService;
+import com.sys.mype.sysce.pe.util.CRUD;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 @RestController
-@RequestMapping(SysceConstant.PATH_SYSCE_APP_ENTERPRISE)
+@RequestMapping(SysceConstant.RESOURCE_ENTERPRISES)
 @CrossOrigin(SysceConstant.PATH_FROTEND_SYSCE)
-public class EnterpriseController {
+public class EnterpriseController extends GenericController{
 
     final private EnterpriseService enterpriseService;
 
@@ -21,16 +26,14 @@ public class EnterpriseController {
         this.enterpriseService = enterpriseService;
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<?> add(@RequestBody EnterpriseDTO dto){
-        this.enterpriseService.save(dto);
-        return new ResponseEntity<>(new MessageDTO("Empresa Guardado"), HttpStatus.CREATED);
+    @PostMapping(SysceConstant.RESOURCE_ENTERPRISES_ENTERPRISE)
+    public ResponseEntity<?> add(@Valid @RequestBody EnterpriseRequestDTO dto){
+        return super.ok(this.enterpriseService.save(dto), CRUD.REGISTER);
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@PathVariable int id,@RequestBody EnterpriseDTO dto){
-        this.enterpriseService.update(id,dto);
-        return new ResponseEntity<>(new MessageDTO("Registro actualizado"),HttpStatus.OK);
+    @PutMapping(SysceConstant.RESOURCE_ENTERPRISES_ENTERPRISE+"/{id}")
+    public ResponseEntity<HrefEntityDTO> update(@PathVariable int id,@RequestBody EnterpriseRequestDTO dto){
+        return new ResponseEntity<>(this.enterpriseService.update(id,dto),HttpStatus.OK);
     }
 
     @GetMapping("/findById/{id}")

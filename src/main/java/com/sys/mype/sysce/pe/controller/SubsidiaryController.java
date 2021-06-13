@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(SysceConstant.PATH_SYSCE_APP_SUBSIDIARY)
+@RequestMapping(SysceConstant.RESOURCE_SUBSIDIARYS)
 @CrossOrigin(SysceConstant.PATH_FROTEND_SYSCE)
 public class SubsidiaryController {
 
@@ -21,7 +21,7 @@ public class SubsidiaryController {
         this.subsidiaryService = subsidiaryService;
     }
 
-    @PostMapping("/add")
+    @PostMapping(SysceConstant.RESOURCE_SUBSIDIARYS_SUBSIDIARY)
     public ResponseEntity<?> add(@RequestBody SubsidiaryDTO dto){
         this.subsidiaryService.save(dto);
         return new ResponseEntity<>(new MessageDTO("Subsidiaria Registrado"),HttpStatus.CREATED);

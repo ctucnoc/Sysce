@@ -11,7 +11,7 @@ public class BAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cd_autority")
+    @Column(name = "cd_authority")
     private int authorityId;
 
     @Column(name = "nm_authority",length = 30)

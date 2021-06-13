@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(SysceConstant.PATH_SYSCE_APP_SCREEN)
+@RequestMapping(SysceConstant.RESOURCE_SCREENS)
 @CrossOrigin(SysceConstant.PATH_FROTEND_SYSCE)
 public class ScreenController {
 
@@ -19,7 +19,7 @@ public class ScreenController {
         this.screenService = screenService;
     }
 
-    @PostMapping("/add")
+    @PostMapping(SysceConstant.RESOURCE_SCREENS_SCREEN)
     public ResponseEntity<?> add(@RequestBody ScreenDTO dto){
         this.screenService.save(dto);
         return new ResponseEntity<>(new MessageDTO("Correctamente registrado"), HttpStatus.CREATED);

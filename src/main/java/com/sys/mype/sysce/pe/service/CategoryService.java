@@ -1,12 +1,12 @@
 package com.sys.mype.sysce.pe.service;
 
 import com.sys.mype.sysce.pe.dto.CategoryDTO;
-
-import java.util.List;
+import com.sys.mype.sysce.pe.dto.HrefEntityDTO;
+import com.sys.mype.sysce.pe.dto.request.CategoryRequestDTO;
 
 public interface CategoryService {
 
-    public void save(CategoryDTO categoryDTO);
-
-//    public List<CategoryDTO> findByCategoryName(String categoryName);
+    public HrefEntityDTO save(CategoryRequestDTO categoryDTO);
+    
+    public CategoryDTO findById(int id);
 }

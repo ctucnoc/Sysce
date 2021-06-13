@@ -1,28 +1,37 @@
 package com.sys.mype.sysce.pe.controller;
 
 import com.sys.mype.sysce.pe.constant.SysceConstant;
-import com.sys.mype.sysce.pe.dto.CategoryDTO;
-import com.sys.mype.sysce.pe.dto.MessageDTO;
+import com.sys.mype.sysce.pe.dto.request.CategoryRequestDTO;
 import com.sys.mype.sysce.pe.service.CategoryService;
-import org.springframework.http.HttpStatus;
+import com.sys.mype.sysce.pe.util.CRUD;
+import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(SysceConstant.PATH_SYSCE_APP_CATEGORY)
+@RequestMapping(SysceConstant.RESOURCE_CATEGORYS)
 @CrossOrigin(SysceConstant.PATH_FROTEND_SYSCE)
-public class CategoryController {
+public class CategoryController extends GenericController{
 
-    private final CategoryService categoryService;
+    final CategoryService categoryService;
 
     public CategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<?> save(@RequestBody CategoryDTO categoryDTO){
-        this.categoryService.save(categoryDTO);
-
-        return new ResponseEntity<>(new MessageDTO("Categoria registrado"), HttpStatus.CREATED);
+    @PostMapping(SysceConstant.RESOURCE_CATEGORYS_CATEGORY)
+    public ResponseEntity<?> save(@Valid @RequestBody CategoryRequestDTO categoryDTO){
+        return super.ok(this.categoryService.save(categoryDTO), CRUD.REGISTER);
+    }
+    
+    @GetMapping(SysceConstant.RESOURCE_CATEGORYS_CATEGORY+"/{id}")
+    public ResponseEntity<?> save(@PathVariable int id){
+    	return super.ok(this.categoryService.findById(id), CRUD.FIND);
     }
 }

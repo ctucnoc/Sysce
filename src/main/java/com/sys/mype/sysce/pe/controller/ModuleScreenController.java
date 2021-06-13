@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(SysceConstant.PATH_SYSCE_APP_MODULE_SCREEN)
+@RequestMapping(SysceConstant.RESOURCE_MODULE_SCREENS)
 @CrossOrigin(SysceConstant.PATH_FROTEND_SYSCE)
 public class ModuleScreenController {
     final private ModuleScreenService moduleScreenService;

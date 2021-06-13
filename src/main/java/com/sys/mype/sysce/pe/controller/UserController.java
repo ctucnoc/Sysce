@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(SysceConstant.PATH_SYSCE_APP_USER)
+@RequestMapping(SysceConstant.RESOURCE_USERS)
 @CrossOrigin(SysceConstant.PATH_FROTEND_SYSCE)
 public class UserController {
 
@@ -19,7 +19,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/add")
+    @PostMapping(SysceConstant.RESOURCE_USERS_USER)
     public ResponseEntity<?> add(@RequestBody UserDTO dto){
         this.userService.save(dto);
         return new ResponseEntity<>(new MessageDTO(String.format("Usuaurio %s creado", dto.getId())),HttpStatus.CREATED);

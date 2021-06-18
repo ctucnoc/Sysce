@@ -25,7 +25,7 @@ public class BCategorySubsidiary {
 
 	@ManyToOne
 	@JoinColumn(name = "cd_subsidiary")
-	private BSubCategory bSubCategory;
+	private BSubsidiary bSubsidiary;
 	
 	@Column(name = "sn_active",length = 1)
 	private String categorySubsidiaryStatus;

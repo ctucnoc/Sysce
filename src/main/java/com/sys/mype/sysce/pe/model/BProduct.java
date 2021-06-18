@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "product",schema = "sysce")
 public class BProduct {
 
-    @Id
+	@Id
     @Column(name = "cd_product",length = 16)
     private String productId;
 

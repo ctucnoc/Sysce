@@ -1,59 +1,41 @@
 package com.sys.mype.sysce.pe.controller;
 
 import com.sys.mype.sysce.pe.constant.SysceConstant;
-import com.sys.mype.sysce.pe.dto.MessageDTO;
-import com.sys.mype.sysce.pe.dto.ProductDTO;
+import com.sys.mype.sysce.pe.dto.request.ProductRequestDTO;
 import com.sys.mype.sysce.pe.service.ProductService;
-import org.springframework.http.HttpStatus;
+import com.sys.mype.sysce.pe.util.CRUD;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 @RestController
 @RequestMapping(SysceConstant.RESOURCE_PRODUCTS)
 @CrossOrigin(SysceConstant.PATH_FROTEND_SYSCE)
-public class ProductController {
+public class ProductController extends GenericController{
 
-	private final ProductService productService;
+	final ProductService productService;
 
 	public ProductController(ProductService productService) {
 		this.productService = productService;
 	}
 
-	@GetMapping("/findall")
-	public ResponseEntity<?> findAll() {
-		return null;
+	@PostMapping(SysceConstant.RESOURCE_PRODUCTS_PRODUCT)
+	public ResponseEntity<?> save(@RequestBody ProductRequestDTO productDTO) {
+		return super.ok(this.productService.save(productDTO), CRUD.REGISTER);
 	}
 
-	@PostMapping("/add")
-	public ResponseEntity<?> save(@RequestBody ProductDTO productDTO) {
-		this.productService.save(productDTO);
-		return new ResponseEntity<>(new MessageDTO("Producto guardado"), HttpStatus.CREATED);
+	@GetMapping(SysceConstant.RESOURCE_PRODUCTS_PRODUCT)
+	public ResponseEntity<?> findByProductName(@RequestParam String name) {
+		return super.ok(this.productService.findByProductName(name), CRUD.FIND);
 	}
 
-	@GetMapping("/findByProductName/{productName}")
-	public List<ProductDTO> findByProductName(@PathVariable String productName) {
-		return this.productService.findByProductName(productName);
+	@PutMapping(SysceConstant.RESOURCE_PRODUCTS_PRODUCT+"/{id}")
+	public ResponseEntity<?> update(@RequestBody ProductRequestDTO productDTO,@PathVariable String id) {
+		return super.ok(this.productService.update(productDTO, id), CRUD.UPDATE);
 	}
-
-	@PutMapping("/update")
-	public ResponseEntity<?> update(@RequestBody ProductDTO productDTO) {
-
-		ProductDTO dProductDTO = this.productService.findByProductId(productDTO.getId());
-
-		dProductDTO.setKit(productDTO.getKit());
-		dProductDTO.setBatch(productDTO.getBatch());
-		dProductDTO.setGeneric(productDTO.getGeneric());
-		dProductDTO.setName(productDTO.getName());
-		dProductDTO.setStatus(productDTO.getStatus());
-		dProductDTO.setExpDate(productDTO.getExpDate());
-		dProductDTO.setRefrigeration(productDTO.getRefrigeration());
-		dProductDTO.setSummary(productDTO.getSummary());
-
-		this.productService.save(dProductDTO);
-
-		return new ResponseEntity<>(new MessageDTO("Fue producto fue actualizado correctamente"), HttpStatus.CREATED);
-
+	
+	@PatchMapping(SysceConstant.RESOURCE_PRODUCTS_PRODUCT+"/{id}")
+	public ResponseEntity<?> delete(@PathVariable String id){
+		return super.ok(this.productService.delete(id), CRUD.DELETE);
 	}
 
 }

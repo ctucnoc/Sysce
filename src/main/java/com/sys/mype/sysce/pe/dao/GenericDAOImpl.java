@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import javax.sql.DataSource;
 import com.sys.mype.sysce.pe.model.BModule;
 import com.sys.mype.sysce.pe.model.BModuleScreen;
@@ -71,6 +73,28 @@ public class GenericDAOImpl implements GenericDAO{
 			} // end finally try
 		}
 		return list;
+	}
+
+	@Override
+	public Optional<String> GeneratedProductId(int subsidiaryId) {
+		Connection cn = null;
+		CallableStatement cs = null;
+		ResultSet rs = null;
+		try {
+			String rpta="";
+			cn = dataSource.getConnection();
+			cs = cn.prepareCall("{call sysce.sp_s_get_product_id(?)}");
+			cs.setInt(1, subsidiaryId);
+			cs.execute();
+			rs = cs.getResultSet();
+			if(rs.next()) {
+				rpta=rs.getString(1);
+			}
+			return Optional.of(rpta);
+		} catch (Exception e) {			
+			System.out.println(e.getMessage());
+			return Optional.empty();
+		}
 	}
 	
 }

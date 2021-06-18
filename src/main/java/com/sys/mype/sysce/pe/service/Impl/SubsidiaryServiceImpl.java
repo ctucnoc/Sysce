@@ -1,16 +1,17 @@
 package com.sys.mype.sysce.pe.service.Impl;
 
 import com.sys.mype.sysce.pe.constant.SysceConstant;
+import com.sys.mype.sysce.pe.dto.HrefEntityDTO;
 import com.sys.mype.sysce.pe.dto.SubsidiaryDTO;
-import com.sys.mype.sysce.pe.errorhandler.SysceGenericClientException;
+import com.sys.mype.sysce.pe.errorhandler.SysceEntityNotFoundException;
 import com.sys.mype.sysce.pe.model.BEnterprise;
 import com.sys.mype.sysce.pe.model.BSubsidiary;
+import com.sys.mype.sysce.pe.repository.EnterpriseRepository;
 import com.sys.mype.sysce.pe.repository.SubsidiaryRepository;
 import com.sys.mype.sysce.pe.service.SubsidiaryService;
+import com.sys.mype.sysce.pe.util.SysceResources;
 import com.sys.mype.sysce.pe.util.Util;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,20 +20,18 @@ import java.util.stream.Collectors;
 @Transactional
 public class SubsidiaryServiceImpl implements SubsidiaryService {
 
-    final private SubsidiaryRepository subsidiaryRepository;
+    final SubsidiaryRepository subsidiaryRepository;
+    final EnterpriseRepository enterpriseRepository;
 
-    public SubsidiaryServiceImpl(SubsidiaryRepository subsidiaryRepository) {
+    public SubsidiaryServiceImpl(SubsidiaryRepository subsidiaryRepository,EnterpriseRepository enterpriseRepository) {
         this.subsidiaryRepository = subsidiaryRepository;
+        this.enterpriseRepository=enterpriseRepository;
     }
 
     @Override
-    public void save(SubsidiaryDTO dto) {
-        if (!Util.validateEmptyField(dto.getName()))
-            throw new SysceGenericClientException("Por Favor, Ingrese un nombre", HttpStatus.BAD_REQUEST);
-        if(dto.getEnterpriseId()<=0)
-            throw new SysceGenericClientException("Por Favor, Ingrese una empresa", HttpStatus.BAD_REQUEST);
+    public HrefEntityDTO save(SubsidiaryDTO dto) {
+    	BEnterprise bEnterprise=enterpriseRepository.findById(dto.getEnterpriseId()).orElseThrow(()-> new SysceEntityNotFoundException("not found enterprise"));
         BSubsidiary bSubsidiary=new BSubsidiary();
-        BEnterprise bEnterprise=new BEnterprise();
         bEnterprise.setEnterpriseId(dto.getEnterpriseId());
         bSubsidiary.setSubsidiaryAddress(dto.getAddress());
         bSubsidiary.setSubsidiaryName(dto.getName());
@@ -40,6 +39,7 @@ public class SubsidiaryServiceImpl implements SubsidiaryService {
         bSubsidiary.setSubsidiaryStatus(SysceConstant.STATE_ACTIVE);
         bSubsidiary.setBEnterprise(bEnterprise);
         this.subsidiaryRepository.save(bSubsidiary);
+        return Util.createHrefFromResource(bSubsidiary.getSubsidiaryId(), SysceResources.ENTERPRISE);
     }
 
     @Override
@@ -53,4 +53,24 @@ public class SubsidiaryServiceImpl implements SubsidiaryService {
                     bean.getBEnterprise().getEnterpriseId())
         ).collect(Collectors.toList());
     }
+
+	@Override
+	public HrefEntityDTO update(SubsidiaryDTO dto, int id) {
+    	BSubsidiary bSubsidiary=subsidiaryRepository.findById(id).orElseThrow(()-> new SysceEntityNotFoundException("not found subsidiary"));
+    	BEnterprise bEnterprise=enterpriseRepository.findById(dto.getEnterpriseId()).orElseThrow(()-> new SysceEntityNotFoundException("not found enterprise"));
+    	bSubsidiary.setSubsidiaryAddress(dto.getAddress());
+    	bSubsidiary.setSubsidiaryName(dto.getName());
+    	bSubsidiary.setSubsidiaryNumberPhone(dto.getPhone());
+    	bSubsidiary.setBEnterprise(bEnterprise);
+    	this.subsidiaryRepository.save(bSubsidiary);
+    	return Util.createHrefFromResource(bSubsidiary.getSubsidiaryId(), SysceResources.SUBSIDIARY);
+	}
+
+	@Override
+	public HrefEntityDTO delete(int id) {
+    	BSubsidiary bSubsidiary=subsidiaryRepository.findById(id).orElseThrow(()-> new SysceEntityNotFoundException("not found subsidiary"));
+    	bSubsidiary.setSubsidiaryStatus(SysceConstant.STATE_INACTIVE);
+    	this.subsidiaryRepository.save(bSubsidiary);
+		return Util.createHrefFromResource(bSubsidiary.getSubsidiaryId(), SysceResources.SUBSIDIARY);
+	}
 }

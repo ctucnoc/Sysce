@@ -1,48 +1,41 @@
 package com.sys.mype.sysce.pe.controller;
 
 import com.sys.mype.sysce.pe.constant.SysceConstant;
-import com.sys.mype.sysce.pe.dto.EnterpriseDTO;
-import com.sys.mype.sysce.pe.dto.HrefEntityDTO;
 import com.sys.mype.sysce.pe.dto.request.EnterpriseRequestDTO;
 import com.sys.mype.sysce.pe.service.EnterpriseService;
 import com.sys.mype.sysce.pe.util.CRUD;
-
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
 import javax.validation.Valid;
 
 @RestController
 @RequestMapping(SysceConstant.RESOURCE_ENTERPRISES)
 @CrossOrigin(SysceConstant.PATH_FROTEND_SYSCE)
-public class EnterpriseController extends GenericController{
+public class EnterpriseController extends GenericController {
 
-    final private EnterpriseService enterpriseService;
+	final private EnterpriseService enterpriseService;
 
-    public EnterpriseController(EnterpriseService enterpriseService) {
-        this.enterpriseService = enterpriseService;
-    }
+	public EnterpriseController(EnterpriseService enterpriseService) {
+		this.enterpriseService = enterpriseService;
+	}
 
-    @PostMapping(SysceConstant.RESOURCE_ENTERPRISES_ENTERPRISE)
-    public ResponseEntity<?> add(@Valid @RequestBody EnterpriseRequestDTO dto){
-        return super.ok(this.enterpriseService.save(dto), CRUD.REGISTER);
-    }
+	@PostMapping(SysceConstant.RESOURCE_ENTERPRISES_ENTERPRISE)
+	public ResponseEntity<?> add(@Valid @RequestBody EnterpriseRequestDTO dto) {
+		return super.ok(this.enterpriseService.save(dto), CRUD.REGISTER);
+	}
 
-    @PutMapping(SysceConstant.RESOURCE_ENTERPRISES_ENTERPRISE+"/{id}")
-    public ResponseEntity<HrefEntityDTO> update(@PathVariable int id,@RequestBody EnterpriseRequestDTO dto){
-        return new ResponseEntity<>(this.enterpriseService.update(id,dto),HttpStatus.OK);
-    }
+	@PutMapping(SysceConstant.RESOURCE_ENTERPRISES_ENTERPRISE + "/{id}")
+	public ResponseEntity<?> update(@PathVariable int id, @RequestBody EnterpriseRequestDTO dto) {
+		return super.ok(this.enterpriseService.update(id, dto), CRUD.UPDATE);
+	}
 
-    @GetMapping("/findById/{id}")
-    public EnterpriseDTO findById(@PathVariable int id){
-        return this.enterpriseService.findById(id);
-    }
+	@GetMapping(SysceConstant.RESOURCE_ENTERPRISES_ENTERPRISE + "/{id}")
+	public ResponseEntity<?> findById(@PathVariable int id) {
+		return super.ok(this.enterpriseService.findById(id), CRUD.FIND);
+	}
 
-    @GetMapping("/findByName/{name}")
-    public List<EnterpriseDTO> findByName(@PathVariable String name){
-        return this.enterpriseService.findByName(name);
-    }
+	@GetMapping(SysceConstant.RESOURCE_ENTERPRISES_ENTERPRISE)
+	public ResponseEntity<?> findByName(@RequestParam String name) {
+		return super.ok(this.enterpriseService.findByName(name), CRUD.FIND);
+	}
 }

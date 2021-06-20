@@ -32,6 +32,9 @@ public final class SysceConstant {
 	// STATES
 	public static final String STATE_ACTIVE = "S";
 	public static final String STATE_INACTIVE = "N";
+	
+	// ORDERS
+	public static final Long CANT_ORDERS = (long) 0;
 
 	public static final String API_VERSION = "v1";
 	public static final String API_NAME = "SISTEMA DE GESTION COMERCIAL Y EMPRESARIAL";
@@ -62,6 +65,10 @@ public final class SysceConstant {
 	public static final String RESOURCE_MODULES_MODULE = "/module";
 	public static final String RESOURCE_MODULE_SCREENS = API_VERSION + RESOURCE_GENERIC + "/modules-screens";
 	public static final String RESOURCE_MODULE_SCREENS_SCREEN = "/module-screen";
+	public static final String RESOURCE_KINDSALES = API_VERSION + RESOURCE_GENERIC + "/kinds";
+	public static final String RESOURCE_KINDSALES_KINDSALE = "/kind";
+	public static final String RESOURCE_KINDPRODUCTS = API_VERSION + RESOURCE_GENERIC + "/kindProducts";
+	public static final String RESOURCE_KINDPRODUCTS_KINDPRODUCT = "/kind-product";
 
 	// =============================================================================================
 	// PATH DEL SISTEMA SYSCE FROENT-END

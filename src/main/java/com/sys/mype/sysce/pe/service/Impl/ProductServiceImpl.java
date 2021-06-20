@@ -5,7 +5,6 @@ import com.sys.mype.sysce.pe.dto.HrefEntityDTO;
 import com.sys.mype.sysce.pe.dto.ProductDTO;
 import com.sys.mype.sysce.pe.dto.request.ProductRequestDTO;
 import com.sys.mype.sysce.pe.errorhandler.SysceEntityNotFoundException;
-import com.sys.mype.sysce.pe.errorhandler.SysceGenericClientException;
 import com.sys.mype.sysce.pe.errorhandler.SysceGenericServerException;
 import com.sys.mype.sysce.pe.model.BProduct;
 import com.sys.mype.sysce.pe.model.BSubCategory;

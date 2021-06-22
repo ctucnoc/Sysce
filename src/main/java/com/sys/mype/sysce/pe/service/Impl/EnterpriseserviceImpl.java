@@ -22,19 +22,23 @@ import java.util.stream.Collectors;
 public class EnterpriseserviceImpl implements EnterpriseService {
 
     final EnterpriseRepository enterpriseRepository;
+    final Util util;
 
-    public EnterpriseserviceImpl(EnterpriseRepository enterpriseRepository) {
+    public EnterpriseserviceImpl(EnterpriseRepository enterpriseRepository,Util util) {
         this.enterpriseRepository = enterpriseRepository;
+        this.util=util;
     }
 
     @Override
     public HrefEntityDTO save(EnterpriseRequestDTO dto) {
-        if (!Util.validateEmptyField(dto.getName()))
-            throw new SysceGenericClientException("Por Favor, Ingrese un nombre", HttpStatus.BAD_REQUEST);
-        if(!Util.validateEmptyField(dto.getRuc()))
-            throw new SysceGenericClientException("Por Favor, Ingrese RUC", HttpStatus.BAD_REQUEST);
-        if(!Util.validateEmptyField(dto.getAddress()))
-            throw new SysceGenericClientException("Por Favor, Ingrese dirección", HttpStatus.BAD_REQUEST);
+    	if(!util.validateNumberRUC(dto.getRuc()))
+        	throw new SysceGenericClientException("error ruc", HttpStatus.BAD_REQUEST);
+    	if(!util.validateEmail(dto.getMail()))
+        	throw new SysceGenericClientException("error email", HttpStatus.BAD_REQUEST);
+    	if(!util.validateCellphone(dto.getPhone()))
+        	throw new SysceGenericClientException("error phone", HttpStatus.BAD_REQUEST);
+        if(this.enterpriseRepository.existsByEnterpriseRuc(dto.getRuc(), SysceConstant.STATE_ACTIVE))
+        	throw new SysceGenericClientException("exists enterprise", HttpStatus.BAD_REQUEST);
         BEnterprise bEnterprise=new BEnterprise();
         bEnterprise.setEnterpriseName(dto.getName());
         bEnterprise.setEnterpriseAddress(dto.getAddress());

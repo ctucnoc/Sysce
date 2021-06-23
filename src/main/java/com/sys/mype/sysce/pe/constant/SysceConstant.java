@@ -69,6 +69,8 @@ public final class SysceConstant {
 	public static final String RESOURCE_KINDSALES_KINDSALE = "/kind";
 	public static final String RESOURCE_KINDPRODUCTS = API_VERSION + RESOURCE_GENERIC + "/kindProducts";
 	public static final String RESOURCE_KINDPRODUCTS_KINDPRODUCT = "/kind-product";
+	public static final String RESOURCE_ORDERTYPES = API_VERSION + RESOURCE_GENERIC + "/orderTypes";
+	public static final String RESOURCE_ORDERTYPES_ORDERTYPE = "/order-type";
 
 	// =============================================================================================
 	// PATH DEL SISTEMA SYSCE FROENT-END

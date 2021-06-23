@@ -7,5 +7,6 @@ public enum SysceResources {
 	PRODUCT,
 	SUBSIDIARY,
 	KINDSALE,
-	KINDPRODUCT
+	KINDPRODUCT,
+	ORDERTYPE
 }

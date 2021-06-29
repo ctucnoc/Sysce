@@ -35,6 +35,13 @@ public final class SysceConstant {
 	
 	// ORDERS
 	public static final Long CANT_ORDERS = (long) 0;
+	public static final int CANT_VISIT_INITIAL = 0;
+	public static final int STATE_ORDER_STATUS_INITIAL=1;
+	public static final int STATE_ORDER_TYPE_INITIAL=1;
+
+	
+    // HTML TEMPLATES
+    public static final String HTML_SEND_EMAIL = "CD_SEND_MAIL";
 
 	public static final String API_VERSION = "v1";
 	public static final String API_NAME = "SISTEMA DE GESTION COMERCIAL Y EMPRESARIAL";
@@ -69,9 +76,17 @@ public final class SysceConstant {
 	public static final String RESOURCE_KINDSALES_KINDSALE = "/kind";
 	public static final String RESOURCE_KINDPRODUCTS = API_VERSION + RESOURCE_GENERIC + "/kindProducts";
 	public static final String RESOURCE_KINDPRODUCTS_KINDPRODUCT = "/kind-product";
-	public static final String RESOURCE_ORDERTYPES = API_VERSION + RESOURCE_GENERIC + "/orderTypes";
+	public static final String RESOURCE_ORDERTYPES = API_VERSION + RESOURCE_GENERIC + "/orders";
 	public static final String RESOURCE_ORDERTYPES_ORDERTYPE = "/order-type";
-
+	public static final String RESOURCE_ORDERSTATUSS = API_VERSION + RESOURCE_GENERIC + "/orders";
+	public static final String RESOURCE_ORDERSTATUSS_ORDERSTATUS = "/order-status";
+	public static final String RESOURCE_VALIDATIONS = API_VERSION + RESOURCE_GENERIC + "/validation";
+	public static final String RESOURCE_VALIDATIONS_VALIDATION = "/send-mail";
+	public static final String RESOURCE_CONSUMERS = API_VERSION + RESOURCE_GENERIC + "/consumers";
+	public static final String RESOURCE_CONSUMERS_CONSUMER = "/consumer";
+	public static final String RESOURCE_ORDERS = API_VERSION + RESOURCE_GENERIC + "/orders";
+	public static final String RESOURCE_ORDERS_ORDER = "/order";
+	
 	// =============================================================================================
 	// PATH DEL SISTEMA SYSCE FROENT-END
 	// =============================================================================================

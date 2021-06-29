@@ -2,9 +2,9 @@ package com.sys.mype.sysce.pe.controller;
 
 
 import com.sys.mype.sysce.pe.constant.SysceConstant;
-import com.sys.mype.sysce.pe.dto.UserLoinDTO;
 import com.sys.mype.sysce.pe.dto.UserPrincipalDTO;
 import com.sys.mype.sysce.pe.dto.UserResponseDTO;
+import com.sys.mype.sysce.pe.dto.request.UserLoinRequestDTO;
 import com.sys.mype.sysce.pe.errorhandler.SysceUnauthorizedException;
 import com.sys.mype.sysce.pe.security.jwt.JwtProvider;
 import com.sys.mype.sysce.pe.util.CRUD;
@@ -19,6 +19,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import java.util.Objects;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping(SysceConstant.RESOURCE_SIP)
@@ -39,7 +41,7 @@ public class SipController extends GenericController{
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody UserLoinDTO dto){
+    public ResponseEntity<?> login(@Valid @RequestBody UserLoinRequestDTO dto){
         logger.info("Iniciando proceso de login...!!!");
         logger.info(dto.getUser() +' '+dto.getPassword());
         Authentication authentication = authenticate(dto.getUser(),dto.getRuc(), dto.getPassword());

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class KindSaleRequestDTO {
+public class OrderStatusRequestDTO {
 	
 	@NotNull
 	@NotBlank

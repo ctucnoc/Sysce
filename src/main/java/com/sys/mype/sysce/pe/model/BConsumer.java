@@ -17,7 +17,7 @@ import lombok.Data;
 @Data
 public class BConsumer {
 	@Id
-	@Column(name = "cd_consumer",length = 15)
+	@Column(name = "cd_consumer",length = 16)
 	private String consumerId;
 	
 	@Column(name = "nm_consumer",length = 30)
@@ -38,6 +38,9 @@ public class BConsumer {
 	
 	@Column(name = "ds_direction",length = 90)
 	private String consumerDirection;
+	
+	@Column(name = "ds_mail",length = 90)
+	private String consumerMail;
 	
 	@Column(name = "sn_active")
 	private String consumerStatus;

@@ -18,9 +18,9 @@ import javax.transaction.Transactional;
 @Transactional
 public class UserServiceImpl implements UserService {
 
-    final private PasswordEncoder passwordEncoder;
+    final PasswordEncoder passwordEncoder;
 
-    final private UserRepository userRepository;
+    final UserRepository userRepository;
 
     public UserServiceImpl(UserRepository userRepository,PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;

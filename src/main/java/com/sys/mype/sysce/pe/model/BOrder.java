@@ -1,11 +1,14 @@
 package com.sys.mype.sysce.pe.model;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Data;
@@ -57,4 +60,7 @@ public class BOrder {
 	@ManyToOne
 	@JoinColumn(name = "cd_subsidiary")
 	private BSubsidiary bSubsidiary;
+	
+	@ManyToMany(cascade = CascadeType.PERSIST)
+	private List<BOrderDetail> orderDetails;
 }

@@ -1,4 +1,4 @@
-package com.sys.mype.sysce.pe.dto;
+package com.sys.mype.sysce.pe.dto.request;
 
 import java.util.List;
 
@@ -9,8 +9,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SendEmailDTO {
+public class SendEmailRequestDTO {
+	private String from;
 	private List<String> to;
 	private String subject;
 	private String htmlTemplate;
+	private List<EmailDataRequestDTO> data;
 }

@@ -1,6 +1,9 @@
 package com.sys.mype.sysce.pe.dto.request;
 
+import java.util.List;
+
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -33,4 +36,8 @@ public class OrderRequestDTO {
 	
 	@NotNull
 	private int orderTypeId;
+	
+	@NotNull
+	@NotEmpty
+	private List<OrderDetailRequestDTO> orderDetails;
 }

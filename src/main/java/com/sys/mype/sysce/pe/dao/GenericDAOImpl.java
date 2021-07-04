@@ -193,4 +193,26 @@ public class GenericDAOImpl implements GenericDAO {
 		}
 	}
 
+	@Override
+	public Optional<String> GeneratedOrderDetailId(int subsidiaryId) {
+		Connection cn = null;
+		CallableStatement cs = null;
+		ResultSet rs = null;
+		try {
+			String rpta = "";
+			cn = dataSource.getConnection();
+			cs = cn.prepareCall("{call sysce.sp_s_get_order_detail_id(?)}");
+			cs.setInt(1, subsidiaryId);
+			cs.execute();
+			rs = cs.getResultSet();
+			if (rs.next()) {
+				rpta = rs.getString(1);
+			}
+			return Optional.of(rpta);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return Optional.empty();
+		}
+	}
+
 }

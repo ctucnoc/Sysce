@@ -11,5 +11,6 @@ public interface GenericDAO {
 	public Optional<String> GeneratedProductId(int subCategory);
 	public Optional<String> GeneratedConsumerId(int subsidiaryId);
 	public Optional<String> GeneratedOrderId(int subsidiaryId);
+	public Optional<String> GeneratedOrderDetailId(int subsidiaryId);
 	public List<BConsumer> findConsumerByKeyWord(String key_word);
 }

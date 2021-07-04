@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.sys.mype.sysce.pe.dto.SendEmailDTO;
+import com.sys.mype.sysce.pe.dto.request.SendEmailRequestDTO;
 import com.sys.mype.sysce.pe.service.MailService;
 
 @SpringBootTest
@@ -18,7 +18,7 @@ class SysceAppApplicationTests {
 
 	@Test
 	void contextLoads() {
-		SendEmailDTO dto=new SendEmailDTO();
+		SendEmailRequestDTO dto=new SendEmailRequestDTO();
 		List<String> to=new ArrayList<>();
 		to.add("ctc.tucno@gmail.com");
 		dto.setTo(to);
